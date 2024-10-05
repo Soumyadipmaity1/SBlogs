@@ -3,7 +3,9 @@ const API_BASE_URL = 'https://s-blogs.vercel.app/api';
 export const fetchPosts = async () => {
   try {
     console.log('Fetching posts from:', `${API_BASE_URL}/posts`);
-    const response = await fetch(`${API_BASE_URL}/posts`);
+    const response = await fetch(`${API_BASE_URL}/posts`, {
+      credentials: 'include'
+    });
     console.log('Response status:', response.status);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -26,6 +28,7 @@ export const createPost = async (postData) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(postData),
+      credentials: 'include'
     });
     console.log('Create post response status:', response.status);
     if (!response.ok) {
@@ -40,4 +43,3 @@ export const createPost = async (postData) => {
   }
 };
 
-// Add other API calls here (update, delete, etc.)

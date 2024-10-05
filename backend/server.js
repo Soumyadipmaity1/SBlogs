@@ -7,8 +7,11 @@ const postRoutes = require('./routes/post');
 dotenv.config();
 const app = express();
 
+// Update CORS configuration
 app.use(cors({
   origin: ['http://localhost:3000', 'https://s-blogs.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 app.use(express.json());
