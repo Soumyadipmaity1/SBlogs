@@ -37,7 +37,7 @@ const Home = () => {
             <div className="post-content-preview">
               {post.content.length > 200 ? `${post.content.substring(0, 200)}...` : post.content}
             </div>
-            <Link to={`/post/${post._id}`} className="read-more">Read more</Link>
+            <Link to={`/post/${post._id}`} className="read-more" >View Post</Link>
           </div>
         ))
       )}
