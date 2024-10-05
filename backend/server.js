@@ -13,8 +13,10 @@ app.use(cors({
 }));
 app.use(express.json());
 
+console.log('Environment:', process.env.NODE_ENV);
 console.log('MONGO_URI:', process.env.MONGO_URI);
 console.log('Attempting to connect to MongoDB...');
+
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -23,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI, {
   console.log("Connected to MongoDB successfully");
 })
 .catch(err => {
-  console.error("Failed to connect to MongoDB:", err.message);
+  console.error("Failed to connect to MongoDB:", err);
   process.exit(1);
 });
 
@@ -31,12 +33,12 @@ app.use('/api/posts', postRoutes);
 
 // Add a test route
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Backend is working!' });
+  res.json({ message: 'Backend is working!', env: process.env.NODE_ENV });
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Error:', err.message);
+  console.error('Error:', err);
   res.status(500).json({ error: 'Something broke!', details: err.message });
 });
 
