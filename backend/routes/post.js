@@ -5,9 +5,12 @@ const Post = require('../models/post');
 // all post
 router.get('/', async (req, res, next) => {
   try {
+    console.log('Fetching all posts');
     const posts = await Post.find().sort({ createdAt: -1 }).limit(20);
+    console.log(`Found ${posts.length} posts`);
     res.json(posts);
   } catch (err) {
+    console.error('Error fetching posts:', err);
     next(err);
   }
 });
@@ -28,6 +31,7 @@ router.get('/:id', async (req, res, next) => {
 // new post
 router.post('/', async (req, res, next) => {
   const { title, content } = req.body;
+  console.log('Received new post request:', { title, content });
   if (!title || !content) {
     return res.status(400).json({ message: 'Title and content are required' });
   }
@@ -36,8 +40,10 @@ router.post('/', async (req, res, next) => {
   
   try {
     const newPost = await post.save();
+    console.log('New post created:', newPost);
     res.status(201).json(newPost);
   } catch (err) {
+    console.error('Error creating new post:', err);
     next(err);
   }
 });
