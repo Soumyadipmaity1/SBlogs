@@ -1,4 +1,6 @@
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api';
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://s-blogs.vercel.app/api'
+  : 'http://localhost:5000/api';
 
 export const fetchPosts = async () => {
   try {
