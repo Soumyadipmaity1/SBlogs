@@ -5,12 +5,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 const BlogForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const { id } = useParams();  // Get post id from route params
-  const navigate = useNavigate();  // Use useNavigate instead of useHistory
+  const { id } = useParams();  
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
-      // If there's an id, fetch the existing blog post
       axios.get(`/api/posts/${id}`)
         .then(response => {
           setTitle(response.data.title);
@@ -26,12 +25,12 @@ const BlogForm = () => {
     if (id) {
       // Update an existing post
       axios.put(`/api/posts/${id}`, { title, content })
-        .then(() => navigate('/'))  // Navigate back to home after updating
+        .then(() => navigate('/'))  
         .catch(error => console.error(error));
     } else {
       // Create a new post
       axios.post('/api/posts', { title, content })
-        .then(() => navigate('/'))  // Navigate back to home after creating
+        .then(() => navigate('/'))  
         .catch(error => console.error(error));
     }
   };
