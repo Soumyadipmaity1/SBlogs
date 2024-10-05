@@ -58,7 +58,7 @@ body {
 }
 
 .navbar .links a:hover {
-  color: var(--secondary-color);
+  color: #ff4081;
 }
 
 .post-preview {
@@ -72,7 +72,7 @@ body {
 }
 
 .post-preview:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(208, 15, 15, 0.2);
 }
 
 .post-preview h3 {
