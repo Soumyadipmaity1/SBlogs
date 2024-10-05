@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://s-blogs.vercel.app/';
+const API_BASE_URL = 'https://s-blogs.vercel.app/api';
 
 export const fetchPosts = async () => {
   try {
