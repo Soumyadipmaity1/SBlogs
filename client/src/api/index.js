@@ -4,6 +4,7 @@ export const fetchPosts = async () => {
   try {
     console.log('Fetching posts from:', `${API_BASE_URL}/posts`);
     const response = await fetch(`${API_BASE_URL}/posts`);
+    console.log('Response status:', response.status);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -18,6 +19,7 @@ export const fetchPosts = async () => {
 
 export const createPost = async (postData) => {
   try {
+    console.log('Creating post:', postData);
     const response = await fetch(`${API_BASE_URL}/posts`, {
       method: 'POST',
       headers: {
@@ -25,10 +27,13 @@ export const createPost = async (postData) => {
       },
       body: JSON.stringify(postData),
     });
+    console.log('Create post response status:', response.status);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    return response.json();
+    const data = await response.json();
+    console.log('Created post:', data);
+    return data;
   } catch (error) {
     console.error('Error creating post:', error);
     throw error;

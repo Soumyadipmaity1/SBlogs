@@ -1,29 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { fetchPosts } from '../api';
 
 const BlogList = () => {
   const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/posts')
-      .then(response => setPosts(response.data))
-      .catch(error => console.error(error));
+    const loadPosts = async () => {
+      try {
+        const fetchedPosts = await fetchPosts();
+        setPosts(fetchedPosts);
+      } catch (err) {
+        console.error('Failed to fetch posts:', err);
+        setError('Failed to load posts. Please try again later.');
+      }
+    };
+
+    loadPosts();
   }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
-      <h1>Blog Posts</h1>
-      <ul>
-        {posts.map(post => (
-          <li key={post._id}>
-            <Link to={`/post/${post._id}`}>
-              <h2>{post.title}</h2>
-              <p>{post.content.substring(0, 100)}...</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <h2>Blog Posts</h2>
+      {posts.length === 0 ? (
+        <p>No posts found.</p>
+      ) : (
+        <ul>
+          {posts.map(post => (
+            <li key={post._id}>
+              <h3>{post.title}</h3>
+              <p>{post.content}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
