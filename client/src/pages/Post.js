@@ -15,7 +15,7 @@ const Post = () => {
       const fetchPost = async () => {
         setIsLoading(true);
         try {
-          const response = await axios.get(`http://s-blogs.vercel.app/api/posts/${id}`);
+          const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
           setTitle(response.data.title);
           setContent(response.data.content);
         } catch (error) {
@@ -39,9 +39,9 @@ const Post = () => {
     setError('');
     try {
       if (id) {
-        await axios.put(`http://s-blogs.vercel.app/api/posts/${id}`, { title, content });
+        await axios.put(`http://localhost:5000/api/posts/${id}`, { title, content });
       } else {
-        await axios.post('http://s-blogs.vercel.app/api/posts', { title, content });
+        await axios.post('http://localhost:5000/api/posts', { title, content });
       }
       navigate('/');
     } catch (error) {
