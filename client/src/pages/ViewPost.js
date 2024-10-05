@@ -12,7 +12,7 @@ const ViewPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const response = await axios.get(`http://s-blogs.vercel.app/api/posts/${id}`);
         setPost(response.data);
       } catch (error) {
         setError('Error fetching post. Please try again.');
@@ -27,7 +27,7 @@ const ViewPost = () => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/posts/${id}`);
+        await axios.delete(`http://s-blogs.vercel.app/api/posts/${id}`);
         navigate('/');
       } catch (error) {
         setError('Error deleting post. Please try again.');
