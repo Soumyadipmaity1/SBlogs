@@ -7,9 +7,13 @@ const postRoutes = require('./routes/post');
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://s-blogs.vercel.app'],
+  credentials: true
+}));
 app.use(express.json());
 
+console.log('MONGO_URI:', process.env.MONGO_URI);
 console.log('Attempting to connect to MongoDB...');
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -20,15 +24,20 @@ mongoose.connect(process.env.MONGO_URI, {
 })
 .catch(err => {
   console.error("Failed to connect to MongoDB:", err.message);
-  process.exit(1);  // Exit the process if unable to connect to MongoDB
+  process.exit(1);
 });
 
 app.use('/api/posts', postRoutes);
 
+// Add a test route
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend is working!' });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err.message);
-  res.status(500).send('Something broke!');
+  res.status(500).json({ error: 'Something broke!', details: err.message });
 });
 
 // For local development

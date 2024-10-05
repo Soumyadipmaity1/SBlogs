@@ -1,11 +1,19 @@
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api';
 
 export const fetchPosts = async () => {
-  const response = await fetch(`${API_BASE_URL}/posts`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch posts');
+  try {
+    console.log('Fetching posts from:', `${API_BASE_URL}/posts`);
+    const response = await fetch(`${API_BASE_URL}/posts`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log('Fetched posts:', data);
+    return data;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
   }
-  return response.json();
 };
 
-// Add other API calls here...
+// Add similar error handling and logging to other API calls
