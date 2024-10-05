@@ -47,8 +47,8 @@ const ViewPost = () => {
         <p>{post.content}</p>
       </div>
       <div className="post-actions">
-        <Link to={`/edit/${post._id}`} className="edit-button">Edit Post</Link>
-        <button onClick={handleDelete} className="delete-button">Delete Post</button>
+        <Link to={`/edit/${post._id}`} className="edit-button">Edit</Link>
+        <button onClick={handleDelete} className="delete-button">Delete</button>
       </div>
     </div>
   );
